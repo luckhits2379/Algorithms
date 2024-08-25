@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Stack;
 
 public class PostOrder {
-	
+
 
 	public void recursive(TreeNode root, List<Integer> opList) {
 
@@ -22,7 +22,7 @@ public class PostOrder {
 
 	}
 
-	
+
 	public List<Integer>  reversingPreOrder(TreeNode root) {
 
 		List<Integer> list = new ArrayList<Integer>();
@@ -53,13 +53,13 @@ public class PostOrder {
 			}
 
 		}
-		
+
 		Collections.reverse(list);
-		
+
 		return list;
 	}
-	
-	
+
+
 	public List<Integer>  using2Stacks(TreeNode root) {
 
 		List<Integer> list = new ArrayList<Integer>();
@@ -68,7 +68,7 @@ public class PostOrder {
 
 			return list;
 		}
-		
+
 		Stack<TreeNode> resultStk = new Stack<TreeNode>();
 		Stack<TreeNode> stk = new Stack<TreeNode>();
 		stk.push(root);
@@ -90,16 +90,16 @@ public class PostOrder {
 			}
 
 		}
-		
+
 		while(!resultStk.isEmpty()) {
-			
+
 			list.add(resultStk.pop().val);
 		}
-		
+
 		return list;
 	}
-	
-	
+
+
 
 
 
