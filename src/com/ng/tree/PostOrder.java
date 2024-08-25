@@ -8,6 +8,7 @@ import java.util.Stack;
 public class PostOrder {
 
 
+	//Simple recursive Solution
 	public void recursive(TreeNode root, List<Integer> opList) {
 
 		if (root == null) {
@@ -22,7 +23,7 @@ public class PostOrder {
 
 	}
 
-
+	//Use preOrder and then reverse it, visit left then right to get correct order
 	public List<Integer>  reversingPreOrder(TreeNode root) {
 
 		List<Integer> list = new ArrayList<Integer>();
@@ -42,6 +43,8 @@ public class PostOrder {
 
 			list.add(temp.val);
 
+
+			//first push left
 			if(temp.left != null) {
 
 				stk.push(temp.left);
@@ -59,8 +62,8 @@ public class PostOrder {
 		return list;
 	}
 
-
-	public List<Integer>  using2Stacks(TreeNode root) {
+	//Same as reversing preorder, instead of reversing list, use result in stack
+	public List<Integer>  usingTwoStacks(TreeNode root) {
 
 		List<Integer> list = new ArrayList<Integer>();
 
@@ -97,6 +100,53 @@ public class PostOrder {
 		}
 
 		return list;
+	}
+
+
+	// Keep going left and push node to stack untill curr is not null
+	// Process node when curr is null in 2 scenarios
+	// 1: if node at the top of the stack doest have right substree, means right is done. no right sub tree.
+	// 2: if node at top of the stack has right sub tree and equals prev processed nodes, means prev processed node was right subtree, hance right processing done
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public List<Integer> usingOneStack(TreeNode root){
+
+
+		List<Integer> list = new ArrayList();
+
+		if (root == null) {
+
+			return list;
+		}
+
+		Stack<TreeNode> stk = new Stack();
+		TreeNode curr = root;
+		TreeNode prev = null;
+
+		while (curr != null || !stk.isEmpty()) {
+
+			//keep going left
+			if (curr != null) {
+
+				stk.push(curr);
+				curr = curr.left;
+
+				//process nodes (above mentioned 2 cases)	
+			} else if (stk.peek().right == null || stk.peek().right == prev) {
+
+				prev = stk.pop();
+				list.add(prev.val);
+
+				//go to right subtree	
+			} else {
+
+				curr = stk.peek().right;
+
+			}
+
+		}
+
+		return list;
+
 	}
 
 
