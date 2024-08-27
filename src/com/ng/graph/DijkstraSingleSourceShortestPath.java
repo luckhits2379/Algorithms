@@ -16,7 +16,7 @@ public class DijkstraSingleSourceShortestPath {
 	//4: We can also use just queue but it will cost unnecessary iterations, hence not efficient.
 	//5: We can use visited (relaxed) set but we will need to scan entire ans array to find min after each relaxation.
 	//6: From point 5 and 6, we use PriorityQueue, as it gives min value in O(1), which is efficient.
-	//7: There are variations of this algorithm, we need to take care in each step answer should not increase or ans should be bounded.
+	//7: There are variations of this algorithm, we need to take care in each step answer should be bounded.
 	//8: Works to find min distance as min distance is bounded while does not work with max distance as each iteration max distance will keep increasing hence not bounded.
 	//9: Also works to find max probability (leetcode 1514) as max probablity is bounded and does not wotk with min probability as each iteration min probality will keep decreasing means not bounded.
 
@@ -87,10 +87,10 @@ public class DijkstraSingleSourceShortestPath {
 		
 		Stack<Integer> pathStack = new Stack();
 		
-		//before finding path, check if n - 1 is reachable
+		//before finding path, check if distination is reachable
 		if(distanceArrayfromSource[distination] != Integer.MAX_VALUE) {
 			                                                                             
-			int currNode = distination; //to find path from source to (n - 1)th node                                                                                                                    
+			int currNode = distination; //to find path from source to distination node                                                                                                                    
 
 			while(pathArray[currNode] != currNode){ 
 
@@ -104,7 +104,7 @@ public class DijkstraSingleSourceShortestPath {
 
 			} else {
 
-				System.out.println("Path not possible from source to n - 1 node");
+				System.out.println("Path not possible from source to distination node");
 				
 				return new int[]{};
 			}
