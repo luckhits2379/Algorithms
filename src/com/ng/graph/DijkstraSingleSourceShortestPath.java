@@ -17,8 +17,8 @@ public class DijkstraSingleSourceShortestPath {
 	//5: We can use visited (relaxed) set but we will need to scan entire ans array to find min after each relaxation.
 	//6: From point 5 and 6, we use PriorityQueue, as it gives min value in O(1), which is efficient.
 	//7: There are variations of this algorithm, we need to take care in each step answer should not increase or ans should be bounded.
-	//8: Works to find min distance as min distance is bounded and not with max distance, each iteration max distance will keep increasing hence not bounded.
-	//9: Also works to find max probability (leetcode 1514) as max probablity is bounded and not min probability, each iteration min probality will keep decreasing.
+	//8: Works to find min distance as min distance is bounded while does not work with max distance as each iteration max distance will keep increasing hence not bounded.
+	//9: Also works to find max probability (leetcode 1514) as max probablity is bounded and does not wotk with min probability as each iteration min probality will keep decreasing means not bounded.
 
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
