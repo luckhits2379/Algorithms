@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Stack;
 
-public class DijkstraSingleSourceSortestPath {
+public class DijkstraSingleSourceShortestPath {
 
 
 	//1: Works only for +ve edges, for -ve it may or may not give correct result.
