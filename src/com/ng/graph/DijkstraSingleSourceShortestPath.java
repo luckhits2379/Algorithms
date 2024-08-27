@@ -22,6 +22,7 @@ public class DijkstraSingleSourceShortestPath {
 
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
+	//AVG TC: E * logV
 	public int[] getMinDistancePath(int[][] undirectedEdges, int totalNodes, int source, int distination) {       
 
 		List<List<int[]>> adjList= new ArrayList();                                                         
