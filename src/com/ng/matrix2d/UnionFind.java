@@ -41,7 +41,7 @@ public class UnionFind {
 
             for (int c = 0; c < col; c++) {
 
-                if (grid2[r][c] == 1 && grid1[r][c] == 0) { // its this group is not subisland
+                if (grid2[r][c] == 1 && grid1[r][c] == 0) { //this group is not subisland
 
                     int groupIdx = islandDSU.find(getIdx(r, c, col));
 
