@@ -2,7 +2,7 @@ package com.ng.matrix2d;
 
 public class DirAndValidFuctions {
 	
-	//Define 4 dirs left, right, up, down
+	//Define 4 dirs left, right, up, down, like wise we can check for 6/8 dirs as well
 	int[][] dirs = new int[][] { { 0, 1 }, { 0, -1 }, { 1, 0 }, { -1, 0 } };
 	
 	//Check if given row/ col is in bound

@@ -4,7 +4,7 @@ public class UnionFind {
 	
 	
 	//Leetcode 1905 Using union find to count num of subIslands.
-	//We only need to count total iland when cell is 1 and each successful union decrease its count by 1.
+	//NOTE: We only need to count total island when cell is 1 and each successful union decrease its count by 1.
     public int countSubIslands(int[][] grid1, int[][] grid2) {
 
         int row = grid2.length;
