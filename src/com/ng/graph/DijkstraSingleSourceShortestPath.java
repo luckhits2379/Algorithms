@@ -23,11 +23,11 @@ public class DijkstraSingleSourceShortestPath {
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	//AVG TC: E * logV
-	public int[] getMinDistancePath(int[][] undirectedEdges, int totalNodes, int source, int distination) {       
+	public int[] getMinDistancePath(int[][] undirectedEdges, int n, int source, int distination) {       
 
 		List<List<int[]>> adjList= new ArrayList();                                                         
 
-		for(int i = 0; i < totalNodes; i++) {
+		for(int i = 0; i < n; i++) {
 
 			adjList.add(new LinkedList());
 		}
@@ -44,13 +44,13 @@ public class DijkstraSingleSourceShortestPath {
 		}
 
 		//Distance Arr from source
-		int[] distanceArrayfromSource = new int[totalNodes];                                                                                   
+		int[] distanceArrayfromSource = new int[n];                                                                                   
 		Arrays.fill(distanceArrayfromSource, Integer.MAX_VALUE);  //initially max distance                                                  
 		distanceArrayfromSource[source] = 0; //source to source distance 0                                                                                                                
 
 		//Path Arr from source, to keep track from where we are coming at any node
-		int[] pathArray = new int[totalNodes];                                                                               
-		for(int i= 0; i < totalNodes; i++) {  
+		int[] pathArray = new int[n];                                                                               
+		for(int i= 0; i < n; i++) {  
 			pathArray[i] = i;                                                                
 		}
 
