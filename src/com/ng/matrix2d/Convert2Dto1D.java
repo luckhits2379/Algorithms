@@ -1,13 +1,13 @@
 package com.ng.matrix2d;
 
-public class Convert1D {
+public class Convert2Dto1D {
 
 	int totalRow = 0;
 	int totalCol = 0;
 	int n = 0;
 	int[] arr = null;
 
-	public Convert1D(int totalRow, int totalCol) {
+	public Convert2Dto1D(int totalRow, int totalCol) {
 
 		this.n = totalRow * totalCol;
 		this.totalRow = totalRow;
