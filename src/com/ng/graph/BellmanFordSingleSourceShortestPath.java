@@ -11,15 +11,15 @@ public class BellmanFordSingleSourceShortestPath {
 	// It works on DP principal
 
 	//TC: E * V
-	public int[] shortestDistanceforDirectedGraph(int[][] directedEdges, int totalNodes, int source) {
+	public int[] shortestDistanceforDirectedGraph(int[][] directedEdges, int n, int source) {
 
-		int[] minDistanceArr = new int[totalNodes];
+		int[] minDistanceArr = new int[n];
 		Arrays.fill(minDistanceArr, Integer.MAX_VALUE);
 
 		minDistanceArr[source] = 0;
 		
 		 //relax n - l times
-		for(int i = 0; i < totalNodes - 1; i++) {
+		for(int i = 0; i < n - 1; i++) {
 
 			boolean isRelaxed = false;
 
