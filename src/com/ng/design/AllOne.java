@@ -17,28 +17,28 @@ public class AllOne {
 
 		boolean isDummy = false; // to handle operation on head or tail
 		int count = 0;
-		Set<String> set = new HashSet<String>();
+		Set<String> keysSet = new HashSet<String>();
 		ListNode next = null;
 		ListNode prev = null;
 
-		public void add(String key) {
+		public void addKey(String key) {
 
 			if (isDummy) { // if this dummy node means its either tail or head, any add / remove wont work
-
+							// here
 				return;
 			}
 
-			set.add(key);
+			keysSet.add(key);
 		}
 
-		public void remove(String key) {
+		public void removeKey(String key) {
 
 			if (isDummy) { // if this dummy node means its either tail or head, any add / remove wont work
-
+							// here
 				return;
 			}
 
-			set.remove(key);
+			keysSet.remove(key);
 		}
 
 	}
@@ -65,15 +65,15 @@ public class AllOne {
 		// dont insert new Node
 		if (prev.count == cur.count - 1) {// this will also work if prev is head with count == 0
 
-			prev.add(key);
-			cur.remove(key);
+			prev.addKey(key);
+			cur.removeKey(key);
 			map.put(key, prev);
 
 		} else { // insert new node
 
 			ListNode newNode = new ListNode();
 			newNode.count = cur.count - 1;
-			newNode.add(key);
+			newNode.addKey(key);
 
 			newNode.next = cur;
 			cur.prev = newNode;
@@ -81,18 +81,12 @@ public class AllOne {
 			prev.next = newNode;
 			newNode.prev = prev;
 
-			cur.remove(key);
+			cur.removeKey(key);
 			map.put(key, newNode);
 
 		}
 
-		if (cur.set.isEmpty()) { // remove this node
-
-			ListNode prevTemp = cur.prev;
-			ListNode next = cur.next;
-			prevTemp.next = next;
-			next.prev = prevTemp;
-		}
+		removeNodeIfEmpty(cur);
 
 		if (map.get(key).isDummy) { // if cur key is pointing to head means count == 0
 			map.remove(key);
@@ -113,15 +107,15 @@ public class AllOne {
 		// dont insert new Node
 		if (next.count == cur.count + 1) { // this will also work if next node is tail
 
-			next.add(key);
-			cur.remove(key);
+			next.addKey(key);
+			cur.removeKey(key);
 			map.put(key, next);
 
 		} else { // insert new node
 
 			ListNode newNode = new ListNode();
 			newNode.count = cur.count + 1;
-			newNode.add(key);
+			newNode.addKey(key);
 
 			newNode.next = next;
 			next.prev = newNode;
@@ -129,18 +123,12 @@ public class AllOne {
 			cur.next = newNode;
 			newNode.prev = cur;
 
-			cur.remove(key);
+			cur.removeKey(key);
 			map.put(key, newNode);
 
 		}
 
-		if (!cur.isDummy && cur.set.isEmpty()) { // remove this node, if this is not head
-
-			ListNode prevTemp = cur.prev;
-			ListNode nextTemp = cur.next;
-			prevTemp.next = nextTemp;
-			nextTemp.prev = prevTemp;
-		}
+		removeNodeIfEmpty(cur);
 
 	}
 
@@ -150,7 +138,7 @@ public class AllOne {
 			return "";
 		}
 
-		return dummyTail.prev.set.iterator().next();
+		return dummyTail.prev.keysSet.iterator().next();
 	}
 
 	public String getMinKey() {
@@ -159,6 +147,18 @@ public class AllOne {
 			return "";
 		}
 
-		return dummyHead.next.set.iterator().next();
+		return dummyHead.next.keysSet.iterator().next();
+	}
+
+	private void removeNodeIfEmpty(ListNode cur) {
+
+		if (!cur.isDummy && cur.keysSet.isEmpty()) {
+
+			ListNode prev = cur.prev;
+			ListNode next = cur.next;
+			prev.next = next;
+			next.prev = prev;
+		}
+
 	}
 }
