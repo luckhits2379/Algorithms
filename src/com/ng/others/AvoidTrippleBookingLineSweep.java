@@ -7,7 +7,7 @@ public class AvoidTrippleBookingLineSweep {
 
 //The algorithm operates by maintaining a sweep line and an event queue. 
 //The event queue stores points of interest (events) that need to be processed in a sorted order. 
-//Example: Avoid triple booking (leetcode 731) , number of max guests at a time etc
+//Example: Avoid triple booking (leetcode 731), number of max guests at a time etc
 
 }
 
