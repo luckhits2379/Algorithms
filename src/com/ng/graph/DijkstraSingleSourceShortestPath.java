@@ -9,118 +9,128 @@ import java.util.Stack;
 
 public class DijkstraSingleSourceShortestPath {
 
-
-	//1: Works only for +ve edges, for -ve it may or may not give correct result.
-	//2: Once a vertext is relaxed (visited), dont consider it, once relaxed means already at min distance.
-	//3: Works with both directed / undirected, convert undirected to directed to work.
-	//4: We can also use just queue but it will cost unnecessary iterations, hence not efficient.
-	//5: We can use visited (relaxed) set but we will need to scan entire ans array to find min after each relaxation.
-	//6: From point 5 and 6, we use PriorityQueue, as it gives min value in O(1), which is efficient.
-	//7: There are variations of this algorithm, we need to take care in each step answer should be bounded.
-	//8: Works to find min distance as min distance is bounded while does not work with max distance as each iteration max distance will keep increasing hence not bounded.
-	//9: Also works to find max probability (leetcode 1514) as max probablity is bounded and does not wotk with min probability as each iteration min probality will keep decreasing means not bounded.
-
+	// 1: Works only for +ve edges, for -ve it may or may not give correct result.
+	// 2: Once a vertext is relaxed (visited), dont consider it, once relaxed means
+	// already at min distance.
+	// 3: Works with both directed / undirected, convert undirected to directed to
+	// work.
+	// 4: We can also use just queue but it will cost unnecessary iterations, hence
+	// not efficient.
+	// 5: We can use visited (relaxed) set but we will need to scan entire ans array
+	// to find min after each relaxation.
+	// 6: From point 5 and 6, we use PriorityQueue, as it gives min value in O(1),
+	// which is efficient.
+	// 7: There are variations of this algorithm, we need to take care in each step
+	// answer should be bounded.
+	// 8: Works to find min distance as min distance is bounded while does not work
+	// with max distance as each iteration max distance will keep increasing hence
+	// not bounded.
+	// 9: Also works to find max probability (leetcode 1514) as max probablity is
+	// bounded and does not wotk with min probability as each iteration min
+	// probality will keep decreasing means not bounded.
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	//AVG TC: E * logV
-	public int[] getMinDistancePath(int[][] undirectedEdges, int n, int source, int distination) {       
+	// AVG TC: E * logV
+	public int[] getMinDistancePath(int[][] undirectedEdges, int n, int source, int distination) {
 
-		List<List<int[]>> adjList= new ArrayList();                                                         
+		List<List<int[]>> adjList = new ArrayList();
 
-		for(int i = 0; i < n; i++) {
+		for (int i = 0; i < n; i++) {
 
 			adjList.add(new LinkedList());
 		}
 
-
-		for(int[] edge:  undirectedEdges) {
+		for (int[] edge : undirectedEdges) {
 
 			int u = edge[0];
 			int v = edge[1];
 			int w = edge[2];
 
-			adjList.get(u).add(new int[] {v, w});
-			adjList.get(v).add(new int[] {u, w});
+			adjList.get(u).add(new int[] { v, w });
+			adjList.get(v).add(new int[] { u, w });
 		}
 
-		//Distance Arr from source
-		int[] distanceArrayfromSource = new int[n];                                                                                   
-		Arrays.fill(distanceArrayfromSource, Integer.MAX_VALUE);  //initially max distance                                                  
-		distanceArrayfromSource[source] = 0; //source to source distance 0                                                                                                                
+		// Distance Arr from source
+		int[] distanceArrayfromSource = new int[n];
+		Arrays.fill(distanceArrayfromSource, Integer.MAX_VALUE); // initially max distance
+		distanceArrayfromSource[source] = 0; // source to source distance 0
 
-		//Path Arr from source, to keep track from where we are coming at any node
-		int[] pathArray = new int[n];                                                                               
-		for(int i= 0; i < n; i++) {  
-			pathArray[i] = i;                                                                
+		// Path Arr from source, to keep track from where we are coming at any node
+		int[] pathArray = new int[n];
+		for (int i = 0; i < n; i++) {
+			pathArray[i] = i;
 		}
 
-		//mean heap
-		PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> a[1] - b[1]);  
-		pq.add(new int[]{source, 0});                                                                                       
+		// mean heap
+		PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> a[1] - b[1]);
+		pq.add(new int[] { source, 0 });
 
-		while(!pq.isEmpty()){                                                                                          
+		while (!pq.isEmpty()) {
 
-			int[] pair = pq.poll();                                                                                         
+			int[] pair = pq.poll();
 			int currNode = pair[0];
-			int currNodeDistanceFromSource= pair[1];
+			int currNodeDistanceFromSource = pair[1];
 
-			//Note: we can return ans from here as well if we found destination node, as it is relaxed now and no furthur better route is possible
+			// Note: we can return ans from here as well if we found destination node, as it
+			// is relaxed now and no furthur better route is possible
 
-			for(int[] adjacentNode: adjList.get(currNode)){                                                   
+			for (int[] adjacentNode : adjList.get(currNode)) {
 
 				int adjNode = adjacentNode[0];
 				int adjDist = adjacentNode[1];
 
 				int adjacentNodeDistanceFromSource = currNodeDistanceFromSource + adjDist;
 
-				//if adjacentNodeDistanceFromSource is less than already computed distance
-				if(adjacentNodeDistanceFromSource < distanceArrayfromSource[adjNode]){                                                            
+				// if adjacentNodeDistanceFromSource is less than already computed distance
+				if (adjacentNodeDistanceFromSource < distanceArrayfromSource[adjNode]) {
 
-					distanceArrayfromSource[adjNode] = adjacentNodeDistanceFromSource;                                                
-					pq.add(new int[]{adjNode, adjacentNodeDistanceFromSource});           
-					pathArray[adjNode] = currNode;  // to keep track we are coming from which node                                                  
+					distanceArrayfromSource[adjNode] = adjacentNodeDistanceFromSource;
+					pq.add(new int[] { adjNode, adjacentNodeDistanceFromSource });
+					pathArray[adjNode] = currNode; // to keep track we are coming from which node
 
-				} 
+				}
 
 			}
 
 		}
-		
+
+		if (distanceArrayfromSource[distination] == Integer.MAX_VALUE) {
+
+			System.out.println("Path not possible from source to distination node, distination not reachable");
+
+			return new int[] {};
+		}
+
 		Stack<Integer> pathStack = new Stack();
-		
-		//before finding path, check if distination is reachable
-		if(distanceArrayfromSource[distination] != Integer.MAX_VALUE) {
-			                                                                             
-			int currNode = distination; //to find path from source to distination node                                                                                                                    
 
-			while(pathArray[currNode] != currNode){ 
+		int currNode = distination; // to find path from source to distination node
 
-				pathStack.push(currNode);
-				currNode = pathArray[currNode];
-			}
+		while (pathArray[currNode] != currNode) {
 
-			if(currNode == source) {
+			pathStack.push(currNode);
+			currNode = pathArray[currNode];
+		}
 
-				pathStack.push(source);  
+		if (currNode != source) { // last node must have to be source
 
-			} else {
+			System.out.println("Path not possible from source to distination node, end node is not source");
 
-				System.out.println("Path not possible from source to distination node");
-				
-				return new int[]{};
-			}
+			return new int[] {};
 
 		}
-		
+
+		pathStack.push(source); // end node
+
 		int[] minPathArr = new int[pathStack.size()];
-		
+
 		int idx = 0;
-		
-		while(!pathStack.isEmpty()) {
-			
+
+		while (!pathStack.isEmpty()) {
+
 			minPathArr[idx++] = pathStack.pop();
 		}
 
-		return minPathArr;  
+		return minPathArr;
 	}
+
 }
