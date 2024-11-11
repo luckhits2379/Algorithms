@@ -19,40 +19,39 @@ public class KMPAlgorithm {
 	// 3: This table allows the algorithm to skip characters in the text by
 	// determining how much of the pattern has already been matched.
 
-	private int[] computeLPS(String pattern) {
+	private int[] computeLPS(String p) {
 
-		int patternLen = pattern.length();
-		int[] logestPrefixSuffixArr = new int[patternLen];
+		int n = p.length();
+		int[] lps = new int[n];
 
-		logestPrefixSuffixArr[0] = 0; // always, lps[0] = 0
-		int patternIdx = 1;
-		int matchingLen = 0;
+		lps[0] = 0; // always, lps[0] = 0
+		int r = 1; // matching idx
+		int l = 0; // matched length
 
-		while (patternIdx < patternLen) {
+		while (r < n) {
 
-			if (pattern.charAt(patternIdx) == pattern.charAt(matchingLen)) {
+			if (p.charAt(r) == p.charAt(l)) {
 
-				matchingLen++;
-				logestPrefixSuffixArr[patternIdx] = matchingLen;
-				patternIdx++;
+				l++;
+				lps[r++] = l;
 
 			} else {
 
-				if (matchingLen != 0) {
+				if (l == 0) {
 
-					matchingLen--; // or matchingLen = lps[i - 1];
+					lps[r] = 0; // also no need at default val is 0 only
+					r++;
 
 				} else {
 
-					logestPrefixSuffixArr[patternIdx] = 0;
-					patternIdx++;
+					l = lps[l - 1];
 				}
 
 			}
 
 		}
 
-		return logestPrefixSuffixArr;
+		return lps;
 
 	}
 
